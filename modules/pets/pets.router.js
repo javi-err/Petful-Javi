@@ -1,32 +1,28 @@
-  
-const express = require('express');
-const json = require('body-parser').json();
+const express = require("express");
+const json = require("body-parser").json();
 
-const Pets = require('./pets.service');
+const Pets = require("./pets.service");
+const People = require("../people/people.service");
+
 const router = express.Router();
 
-router.get('/api/cats', (req, res) => {
+router.get("/", (req, res) => {
   // Return all pets currently up for adoption.
-  const { nextCat } = Pets.get();
-  return res.status(200).json(nextCat);
+  return res.json(Pets.get());
 });
 
-router.get('/api/dogs', (req, res) => {
-  // Return all pets currently up for adoption.
-  const { nextDog } = Pets.get();
-  return res.status(200).json(nextDog);
-});
-
-router.delete('/api/cats', json, (req, res) => {
+router.delete("/", json, (req, res) => {
   // Remove a pet from adoption.
-  Pets.dequeue('cat');
-  return res.status(201).end();
+  if (req.body.type !== "dog" && req.body.type !== "cat") {
+    res.status(400, "Valid animal");
+  }
+  Pets.dequeue(req.body.type);
+  People.dequeue();
+  res.status(204).end();
 });
 
-router.delete('/api/dogs', json, (req, res) => {
-  // Remove a pet from adoption.
-  Pets.dequeue('dog');
-  return res.status(201).end();
+router.get("/all", json, (req, res) => {
+  return res.json(Pets.getAll());
 });
 
 module.exports = router;
