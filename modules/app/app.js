@@ -3,12 +3,11 @@ require('dotenv').config()
 const express = require('express')
 const cors = require('cors')
 const helmet = require('helmet')
-const { CLIENT_ORIGIN, NODE_ENV } = require('../../config')
+const { NODE_ENV } = require('../../config')
 const app = express()
 
 app.use(helmet())
 app.use(cors({
-  origin: CLIENT_ORIGIN
 }));
 
 app.use('/api/people', require('../people/people.router'))
