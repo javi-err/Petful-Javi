@@ -1,4 +1,4 @@
-  const Queue = require('../queue/Queue')
+const Queue = require('../queue/Queue')
 const store = require('../../store')
 
 // Set up initial data.
