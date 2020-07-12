@@ -16,23 +16,13 @@ store.dogs.forEach(dog => pets.dogs.enqueue(dog))
 
 module.exports = {
   get() {
-    // Return the pets next in line to be adopted.
-    const nextCat = pets.cats.show();
-    const nextDog = pets.dogs.show();
-    return {
-      nextCat,
-      nextDog
-    }
+    let petsArray = []
+    petsArray.push(pets.cats.show());
+    petsArray.push(pets.dogs.show());
+    return petsArray;
   },
 
   dequeue(type) {
-    // Remove a pet from the queue.
-    if (type === 'cat') {
-      pets.cats.dequeue();  
-    }
-    
-    if (type === 'dog') {
-      pets.dogs.dequeue()  
-    }    
+    pets[type].enqueue(pets[type].dequeue())
   }
 }
