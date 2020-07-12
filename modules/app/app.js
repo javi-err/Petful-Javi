@@ -1,13 +1,17 @@
-const express = require("express");
-const cors = require("cors");
+  
+const express = require('express');
+const cors = require('cors');
 
 const app = express();
 
 app.use(cors());
 
-app.use('/api/people', require('../people/people.router'))
-app.use('/api/cat', require('../cat/cat.router'))
-app.use('/api/dog', require('../dog/dog.router'))
+app.use('/people', require('../people/people.router'));
+app.use('/pets', require('../pets/pets.router'));
 
+// request handling
+app.get('/', (req, res) => {
+  res.status(200).send('Hello, world! This is the Petful Server!');
+});
 
 module.exports = app;
