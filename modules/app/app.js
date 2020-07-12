@@ -7,8 +7,7 @@ const { NODE_ENV } = require('../../config')
 const app = express()
 
 app.use(helmet())
-app.use(cors({
-}));
+app.use(cors());
 
 app.use('/api/people', require('../people/people.router'))
 app.use('/api/cat', require('../cat/cat.router'))
